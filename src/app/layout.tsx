@@ -13,7 +13,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "dark h-screen bg-background font-sans antialiased",
           inter.variable,
         )}
       >

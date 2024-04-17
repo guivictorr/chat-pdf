@@ -1,3 +1,9 @@
+import { NoApiKey } from "./no-api-key";
+
 export function Chat() {
-  return <p className="h-full flex items-center justify-center">Chat</p>;
+  return (
+    <div className="h-full flex items-center justify-center">
+      <NoApiKey />
+    </div>
+  );
 }

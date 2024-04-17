@@ -14,7 +14,7 @@ export default function Home() {
         </aside>
         <main className="flex flex-col gap-4 flex-1 h-full">
           <div className="grow border rounded-md">
-            <Chat />
+            <Chat>teste</Chat>
           </div>
           <footer className="mt-auto">
             <ChatInput />

@@ -1,4 +1,5 @@
 import ChatInput from "@/components/chat-input";
+import { PreviewFile } from "@/components/preview-file";
 
 export default function Home() {
   return (
@@ -7,8 +8,8 @@ export default function Home() {
         <h1 className="font-bold text-xl">ChatPDF</h1>
       </header>
       <section className="p-4 h-full flex items-center justify-between gap-4">
-        <aside className="hidden md:block border rounded-md flex-1 h-full">
-          pdf preview
+        <aside className="hidden md:block overflow-hidden border rounded-md flex-1 h-full">
+          <PreviewFile />
         </aside>
         <main className="flex flex-col gap-2 flex-1 h-full">
           <div className="grow border rounded-md">chat</div>

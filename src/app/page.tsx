@@ -12,7 +12,7 @@ export default function Home() {
         <aside className="hidden md:block overflow-hidden border rounded-md flex-1 h-full">
           <PreviewFile />
         </aside>
-        <main className="flex flex-col gap-2 flex-1 h-full">
+        <main className="flex flex-col gap-4 flex-1 h-full">
           <div className="grow border rounded-md">
             <Chat />
           </div>

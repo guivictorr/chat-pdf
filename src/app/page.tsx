@@ -14,8 +14,8 @@ export default function Home() {
           <PreviewFile />
         </aside>
         <main className="flex flex-col gap-4 flex-1 h-full">
-          <ClientOnly className="grow border rounded-md">
-            <Chat>teste</Chat>
+          <ClientOnly className="grow border rounded-md overflow-y-auto">
+            <Chat />
           </ClientOnly>
           <footer className="mt-auto">
             <ChatInput />

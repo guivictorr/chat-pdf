@@ -1,5 +1,4 @@
 "use client";
-
 import { FormEvent, PropsWithChildren, useState } from "react";
 import { ExternalLink } from "./external-link";
 import { Input } from "./ui/input";
@@ -40,7 +39,7 @@ export function Chat({ children }: PropsWithChildren) {
           and use the api key given by the free account.
         </p>
       </div>
-      <form onSubmit={handleApiKeySubmit}>
+      <form className="w-full max-w-sm" onSubmit={handleApiKeySubmit}>
         <div className="flex items-center gap-2">
           <Input
             required

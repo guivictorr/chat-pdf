@@ -1,5 +1,6 @@
 import { Chat } from "@/components/chat";
 import ChatInput from "@/components/chat-input";
+import { ClientOnly } from "@/components/client-only";
 import { PreviewFile } from "@/components/preview-file";
 
 export default function Home() {
@@ -13,9 +14,9 @@ export default function Home() {
           <PreviewFile />
         </aside>
         <main className="flex flex-col gap-4 flex-1 h-full">
-          <div className="grow border rounded-md">
+          <ClientOnly className="grow border rounded-md">
             <Chat>teste</Chat>
-          </div>
+          </ClientOnly>
           <footer className="mt-auto">
             <ChatInput />
           </footer>

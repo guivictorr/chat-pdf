@@ -20,11 +20,21 @@ export function NoFileFound() {
   }
 
   function onDrop(acceptedFiles: File[]) {
+    if (acceptedFiles.length <= 0) return;
     const file = acceptedFiles[0];
     setFile(file);
   }
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragReject,
+    isDragAccept,
+  } = useDropzone({
+    accept: {
+      "application/pdf": [".pdf"],
+    },
     multiple: false,
     onDragOver,
     onDrop,
@@ -38,6 +48,7 @@ export function NoFileFound() {
         "text-center h-full w-full flex flex-col items-center justify-center cursor-pointer focus-within:ring-1 ring-ring rounded-md outline-none",
         {
           "ring-1": isDragActive,
+          "ring-destructive": isDragReject,
         },
       )}
     >
@@ -53,12 +64,18 @@ export function NoFileFound() {
             className="absolute"
             style={{ x, y }}
           >
-            <span className="text-2xl">You can drop now... •‿•</span>
+            <span className="text-2xl">
+              {isDragReject
+                ? "You can't dropt this type of file... (╯°□°)╯︵ ┻━┻"
+                : "You can drop now... •‿•"}
+            </span>
           </motion.div>
         )}
         <input {...getInputProps()} />
         <p className="font-bold text-lg">
-          {isDragActive ? "Drop here to select the file" : "No file found"}
+          {isDragReject && "We accept only pdf's here"}
+          {isDragAccept && isDragActive && "Drop here to select this file"}
+          {!isDragActive && "No file found"}
         </p>
         {!isDragActive && (
           <p className="text-muted-foreground">

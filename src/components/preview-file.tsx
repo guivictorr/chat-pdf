@@ -9,13 +9,17 @@ export function PreviewFile() {
 
   if (file === null) {
     return (
-      <div className="h-full flex items-center justify-center">
+      <aside className="hidden md:block border rounded-md flex-1 h-full hover:border-muted-foreground transition">
         <NoFileFound />
-      </div>
+      </aside>
     );
   }
 
   const fileUrl = URL.createObjectURL(file);
 
-  return <iframe width="100%" height="100%" src={fileUrl} />;
+  return (
+    <aside className="hidden md:block overflow-hidden border rounded-md flex-1 h-full hover:border-muted-foreground transition">
+      <iframe width="100%" height="100%" src={fileUrl} />
+    </aside>
+  );
 }

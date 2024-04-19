@@ -32,7 +32,7 @@ export default function ChatInput() {
   };
 
   return (
-    <form className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring">
+    <form className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring hover:border-muted-foreground transition">
       <Label htmlFor="message" className="sr-only">
         Message
       </Label>

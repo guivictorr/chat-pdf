@@ -35,7 +35,7 @@ export function Sidebar() {
   return (
     <Collapsible
       defaultOpen
-      className="group flex h-full data-[state='closed']:w-fit data-[state='open']:pl-4 w-1/6"
+      className="group flex h-full data-[state='closed']:w-fit data-[state='open']:pl-4 w-[38rem]"
     >
       <CollapsibleContent asChild>
         <ul className="flex flex-col items-start justify-start grow h-full p-3 gap-2 border hover:border-muted-foreground transition rounded-md overflow-y-auto">

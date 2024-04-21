@@ -1,3 +1,6 @@
+"use client";
+import { useDropzone } from "react-dropzone";
+import { Button } from "./ui/button";
 import {
   Collapsible,
   CollapsibleContent,
@@ -9,9 +12,26 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "./ui/tooltip";
-import { FileIcon } from "lucide-react";
+import { FileIcon, PlusIcon } from "lucide-react";
+import { fileAtom } from "@/state/file";
+import { useSetAtom } from "jotai";
 
 export function Sidebar() {
+  const setFile = useSetAtom(fileAtom);
+
+  function onDrop(acceptedFiles: File[]) {
+    if (acceptedFiles.length <= 0) return;
+    const file = acceptedFiles[0];
+    setFile(file);
+  }
+
+  const { getInputProps, getRootProps } = useDropzone({
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+    multiple: false,
+    onDrop,
+  });
   return (
     <Collapsible
       defaultOpen
@@ -20,14 +40,19 @@ export function Sidebar() {
       <CollapsibleContent asChild>
         <ul className="flex flex-col items-start justify-start grow h-full p-3 gap-2 border hover:border-muted-foreground transition rounded-md overflow-y-auto">
           {Array.from({ length: 10 }, (_, i) => (
-            <li
-              key={i}
-              className="flex items-center gap-2 w-full p-2 hover:bg-muted cursor-pointer rounded-md"
-            >
-              <FileIcon className="w-4 h-4" />
-              PDF{i}
+            <li key={i} className="w-full">
+              <Button variant="ghost" className="w-full justify-start">
+                <FileIcon className="w-4 h-4 shrink-0 mr-2" />
+                PDF{i}
+              </Button>
             </li>
           ))}
+          <li className="w-full">
+            <Button variant="outline" className="w-full" {...getRootProps()}>
+              <input {...getInputProps()} className="hidden" />
+              <PlusIcon className="w-4 h-4 text-muted-foreground shrink-0 mr-2" />
+            </Button>
+          </li>
         </ul>
       </CollapsibleContent>
       <TooltipProvider>

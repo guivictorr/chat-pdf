@@ -43,7 +43,7 @@ export function Sidebar() {
             <li key={i} className="w-full">
               <Button variant="ghost" className="w-full justify-start">
                 <FileIcon className="w-4 h-4 shrink-0 mr-2" />
-                PDF{i}
+                <span className="truncate">PDF{i}</span>
               </Button>
             </li>
           ))}

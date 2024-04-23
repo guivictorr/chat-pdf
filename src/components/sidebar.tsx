@@ -1,4 +1,5 @@
 "use client";
+
 import { useDropzone } from "react-dropzone";
 import { Button } from "./ui/button";
 import {
@@ -13,16 +14,25 @@ import {
   TooltipContent,
 } from "./ui/tooltip";
 import { FileIcon, PlusIcon } from "lucide-react";
-import { fileAtom } from "@/state/file";
-import { useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
+import { apiKeyAtom } from "@/state/api-key";
+import { AddFileProps, filesAtom, useAddFile } from "@/state/file";
 
 export function Sidebar() {
-  const setFile = useSetAtom(fileAtom);
+  const apiKey = useAtomValue(apiKeyAtom);
+  const files = useAtomValue(filesAtom);
+  const addFile = useAddFile();
 
   function onDrop(acceptedFiles: File[]) {
     if (acceptedFiles.length <= 0) return;
-    const file = acceptedFiles[0];
-    setFile(file);
+    const selectedFile = acceptedFiles[0];
+
+    const newFile: AddFileProps = {
+      name: selectedFile.name,
+      chat: [],
+    };
+
+    addFile(newFile);
   }
 
   const { getInputProps, getRootProps } = useDropzone({
@@ -32,6 +42,7 @@ export function Sidebar() {
     multiple: false,
     onDrop,
   });
+
   return (
     <Collapsible
       defaultOpen
@@ -39,16 +50,21 @@ export function Sidebar() {
     >
       <CollapsibleContent asChild>
         <ul className="flex flex-col items-start justify-start grow h-full p-3 gap-2 border hover:border-muted-foreground transition rounded-md overflow-y-auto">
-          {Array.from({ length: 10 }, (_, i) => (
-            <li key={i} className="w-full">
+          {files.map((file) => (
+            <li key={file.id} className="w-full">
               <Button variant="ghost" className="w-full justify-start">
                 <FileIcon className="w-4 h-4 shrink-0 mr-2" />
-                <span className="truncate">PDF{i}</span>
+                <span className="truncate">{file.name}</span>
               </Button>
             </li>
           ))}
           <li className="w-full">
-            <Button variant="outline" className="w-full" {...getRootProps()}>
+            <Button
+              disabled={!apiKey}
+              variant="outline"
+              className="w-full"
+              {...getRootProps()}
+            >
               <input {...getInputProps()} className="hidden" />
               <PlusIcon className="w-4 h-4 text-muted-foreground shrink-0 mr-2" />
             </Button>

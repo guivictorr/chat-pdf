@@ -2,7 +2,6 @@ import { Chat } from "@/components/chat";
 import ChatInput from "@/components/chat-input";
 import { ClientOnly } from "@/components/client-only";
 import { NoApiKey } from "@/components/no-api-key";
-import { PreviewFile } from "@/components/preview-file";
 import { Sidebar } from "@/components/sidebar";
 
 export default function Home() {
@@ -17,7 +16,7 @@ export default function Home() {
       <section className="py-4 pr-4 h-full flex items-center justify-between">
         <Sidebar />
         <div className="flex items-center h-full grow gap-4">
-          <PreviewFile />
+          {/* <PreviewFile /> */}
           <main className="flex flex-col gap-4 flex-1 h-full">
             <Chat />
             <footer className="mt-auto">

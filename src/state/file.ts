@@ -31,5 +31,11 @@ export type AddFileProps = Omit<PdfFile, "id">;
 export function useAddFile() {
   const [files, setFiles] = useAtom(filesAtom);
   return (file: AddFileProps) =>
-    setFiles([...files, { ...file, id: `${file.name}_${Date.now()}` }]);
+    setFiles([
+      ...files,
+      {
+        ...file,
+        id: `${file.name.replace(" ", "")}_${Date.now()}`.toLowerCase(),
+      },
+    ]);
 }

@@ -1,4 +1,4 @@
-import { atom, useAtom } from "jotai";
+import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
 interface Message {
@@ -26,16 +26,3 @@ export const filesAtom = atomWithStorage<PdfFile[]>("CHAT_PDF:FILES", [], {
     localStorage.removeItem("CHAT_PDF:FILES");
   },
 });
-
-export type AddFileProps = Omit<PdfFile, "id">;
-export function useAddFile() {
-  const [files, setFiles] = useAtom(filesAtom);
-  return (file: AddFileProps) =>
-    setFiles([
-      ...files,
-      {
-        ...file,
-        id: `${file.name.replace(" ", "")}_${Date.now()}`.toLowerCase(),
-      },
-    ]);
-}

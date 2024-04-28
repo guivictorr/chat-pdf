@@ -1,12 +1,7 @@
 "use client";
 
 import { apiKeyAtom } from "@/state/api-key";
-import {
-  AddFileProps,
-  filesAtom,
-  selectedFileAtom,
-  useAddFile,
-} from "@/state/file";
+import { PdfFile, filesAtom, selectedFileAtom } from "@/state/file";
 import { useAtom, useAtomValue } from "jotai";
 import { FileIcon, PlusIcon } from "lucide-react";
 import { useDropzone } from "react-dropzone";
@@ -25,9 +20,8 @@ import { Button } from "./ui/button";
 
 export function Sidebar() {
   const apiKey = useAtomValue(apiKeyAtom);
-  const files = useAtomValue(filesAtom);
+  const [files, setFiles] = useAtom(filesAtom);
   const [selectedFile, setSelectedFile] = useAtom(selectedFileAtom);
-  const addFile = useAddFile();
 
   function handleSelectedFile(fileId: string) {
     return () => {
@@ -39,12 +33,13 @@ export function Sidebar() {
     if (acceptedFiles.length <= 0) return;
     const selectedFile = acceptedFiles[0];
 
-    const newFile: AddFileProps = {
+    const newFile: PdfFile = {
       name: selectedFile.name,
+      id: Date.now().toString(),
       chat: [],
     };
 
-    addFile(newFile);
+    setFiles([...files, newFile]);
   }
 
   const { getInputProps, getRootProps } = useDropzone({

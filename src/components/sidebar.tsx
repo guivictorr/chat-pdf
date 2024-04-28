@@ -1,7 +1,7 @@
 "use client";
 
 import { apiKeyAtom } from "@/state/api-key";
-import { PdfFile, filesAtom, selectedFileAtom } from "@/state/file";
+import { PdfFile, filesAtom, selectedFileIdAtom } from "@/state/file";
 import { useAtom, useAtomValue } from "jotai";
 import { FileIcon, PlusIcon } from "lucide-react";
 import { useDropzone } from "react-dropzone";
@@ -21,11 +21,11 @@ import { Button } from "./ui/button";
 export function Sidebar() {
   const apiKey = useAtomValue(apiKeyAtom);
   const [files, setFiles] = useAtom(filesAtom);
-  const [selectedFile, setSelectedFile] = useAtom(selectedFileAtom);
+  const [selectedFileId, setSelectedFileId] = useAtom(selectedFileIdAtom);
 
   function handleSelectedFile(fileId: string) {
     return () => {
-      setSelectedFile(fileId);
+      setSelectedFileId(fileId);
     };
   }
 
@@ -56,12 +56,12 @@ export function Sidebar() {
       className="group flex h-full data-[state='closed']:w-fit data-[state='open']:pl-4 w-full max-w-96"
     >
       <CollapsibleContent asChild>
-        <ul className="flex flex-col items-start justify-start grow h-full p-3 gap-2 border hover:border-muted-foreground transition rounded-md overflow-y-auto">
+        <ul className="flex flex-col items-start justify-start grow h-full p-3 gap-2 border hover:border-muted-foreground rounded-md overflow-y-auto">
           {files.map((file) => (
             <li key={file.id} className="w-full">
               <Button
                 onClick={handleSelectedFile(file.id)}
-                variant={file.id === selectedFile ? "secondary" : "ghost"}
+                variant={file.id === selectedFileId ? "secondary" : "ghost"}
                 className="w-full justify-start"
               >
                 <FileIcon className="w-4 h-4 shrink-0 mr-2" />

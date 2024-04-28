@@ -1,45 +1,23 @@
+"use client";
+
+import { messagesAtom } from "@/state/messages";
+import { useAtomValue } from "jotai";
 import { WandSparkles } from "lucide-react";
 
-const mockMessages = [
-  {
-    role: "user",
-    content: "amet nostrud ea esse id irure commodo ea id id",
-  },
-  {
-    role: "assistant",
-    content:
-      "Aute pariatur exercitation nisi labore culpa incididunt voluptate amet ea quis nisi mollit irure proident. Eu reprehenderit velit qui duis. Pariatur duis esse enim non. Aute veniam enim laborum et ullamco sunt ipsum officia enim minim nulla. Ut consectetur consequat eiusmod veniam aliquip officia minim consectetur sint deserunt. Anim minim id laborum commodo non sint minim et laboris. Nostrud proident amet veniam aliqua fugiat Lorem adipisicing quis.",
-  },
-  {
-    role: "assistant",
-    content:
-      "Aute pariatur exercitation nisi labore culpa incididunt voluptate amet ea quis nisi mollit irure proident. Eu reprehenderit velit qui duis. Pariatur duis esse enim non. Aute veniam enim laborum et ullamco sunt ipsum officia enim minim nulla. Ut consectetur consequat eiusmod veniam aliquip officia minim consectetur sint deserunt. Anim minim id laborum commodo non sint minim et laboris. Nostrud proident amet veniam aliqua fugiat Lorem adipisicing quis.",
-  },
-  {
-    role: "assistant",
-    content:
-      "Aute pariatur exercitation nisi labore culpa incididunt voluptate amet ea quis nisi mollit irure proident. Eu reprehenderit velit qui duis. Pariatur duis esse enim non. Aute veniam enim laborum et ullamco sunt ipsum officia enim minim nulla. Ut consectetur consequat eiusmod veniam aliquip officia minim consectetur sint deserunt. Anim minim id laborum commodo non sint minim et laboris. Nostrud proident amet veniam aliqua fugiat Lorem adipisicing quis.",
-  },
-  {
-    role: "assistant",
-    content:
-      "Aute pariatur exercitation nisi labore culpa incididunt voluptate amet ea quis nisi mollit irure proident. Eu reprehenderit velit qui duis. Pariatur duis esse enim non. Aute veniam enim laborum et ullamco sunt ipsum officia enim minim nulla. Ut consectetur consequat eiusmod veniam aliquip officia minim consectetur sint deserunt. Anim minim id laborum commodo non sint minim et laboris. Nostrud proident amet veniam aliqua fugiat Lorem adipisicing quis.",
-  },
-  {
-    role: "assistant",
-    content:
-      "Aute pariatur exercitation nisi labore culpa incididunt voluptate amet ea quis nisi mollit irure proident. Eu reprehenderit velit qui duis. Pariatur duis esse enim non. Aute veniam enim laborum et ullamco sunt ipsum officia enim minim nulla. Ut consectetur consequat eiusmod veniam aliquip officia minim consectetur sint deserunt. Anim minim id laborum commodo non sint minim et laboris. Nostrud proident amet veniam aliqua fugiat Lorem adipisicing quis.",
-  },
-  {
-    role: "assistant",
-    content:
-      "Aute pariatur exercitation nisi labore culpa incididunt voluptate amet ea quis nisi mollit irure proident. Eu reprehenderit velit qui duis. Pariatur duis esse enim non. Aute veniam enim laborum et ullamco sunt ipsum officia enim minim nulla. Ut consectetur consequat eiusmod veniam aliquip officia minim consectetur sint deserunt. Anim minim id laborum commodo non sint minim et laboris. Nostrud proident amet veniam aliqua fugiat Lorem adipisicing quis.",
-  },
-];
 export function Messages() {
+  const messages = useAtomValue(messagesAtom);
+
+  if (messages.length <= 0) {
+    return (
+      <p className="h-full text-xl font-medium flex justify-center items-center">
+        No messages found
+      </p>
+    );
+  }
+
   return (
-    <ol className="p-4 flex flex-col justify-end gap-4 grow border rounded-md overflow-y-auto">
-      {mockMessages.map((message) => (
+    <ol className="flex flex-col justify-end gap-4 grow rounded-md overflow-y-auto">
+      {messages.map((message) => (
         <li key={message.content} className="flex flex-col gap-4">
           <header className="flex items-center gap-2">
             <span className="font-bold">
@@ -50,14 +28,7 @@ export function Messages() {
             )}
             <div className="h-px bg-muted w-full" />
           </header>
-          <div>
-            Id non dolor consequat ad adipisicing velit nulla qui eiusmod qui.
-            Aliqua in commodo velit duis fugiat commodo id dolor proident. Non
-            voluptate ullamco laboris consequat irure enim ipsum pariatur irure
-            proident amet. Adipisicing nisi et id non in in sit culpa dolore
-            pariatur et commodo. Ipsum ullamco veniam deserunt nostrud laboris
-            voluptate anim eu esse voluptate do.
-          </div>
+          <div>{message.content}</div>
         </li>
       ))}
     </ol>

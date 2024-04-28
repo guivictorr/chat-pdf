@@ -17,7 +17,7 @@ export function ClientOnly({
     return (
       <div
         className={cn(
-          "h-full w-full flex items-center justify-center border rounded-md",
+          "h-full w-full flex items-center backdrop-blur justify-center border rounded-md",
           rest.className,
         )}
       >

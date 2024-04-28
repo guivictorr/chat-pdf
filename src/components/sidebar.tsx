@@ -14,14 +14,26 @@ import {
   TooltipContent,
 } from "./ui/tooltip";
 import { FileIcon, PlusIcon } from "lucide-react";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { apiKeyAtom } from "@/state/api-key";
-import { AddFileProps, filesAtom, useAddFile } from "@/state/file";
+import {
+  AddFileProps,
+  filesAtom,
+  selectedFileAtom,
+  useAddFile,
+} from "@/state/file";
 
 export function Sidebar() {
   const apiKey = useAtomValue(apiKeyAtom);
   const files = useAtomValue(filesAtom);
+  const [selectedFile, setSelectedFile] = useAtom(selectedFileAtom);
   const addFile = useAddFile();
+
+  function handleSelectedFile(fileId: string) {
+    return () => {
+      setSelectedFile(fileId);
+    };
+  }
 
   function onDrop(acceptedFiles: File[]) {
     if (acceptedFiles.length <= 0) return;
@@ -46,13 +58,17 @@ export function Sidebar() {
   return (
     <Collapsible
       defaultOpen
-      className="group flex h-full data-[state='closed']:w-fit data-[state='open']:pl-4 w-[38rem]"
+      className="group flex h-full data-[state='closed']:w-fit data-[state='open']:pl-4 w-full max-w-96"
     >
       <CollapsibleContent asChild>
         <ul className="flex flex-col items-start justify-start grow h-full p-3 gap-2 border hover:border-muted-foreground transition rounded-md overflow-y-auto">
           {files.map((file) => (
             <li key={file.id} className="w-full">
-              <Button variant="ghost" className="w-full justify-start">
+              <Button
+                onClick={handleSelectedFile(file.id)}
+                variant={file.id === selectedFile ? "secondary" : "ghost"}
+                className="w-full justify-start"
+              >
                 <FileIcon className="w-4 h-4 shrink-0 mr-2" />
                 <span className="truncate">{file.name}</span>
               </Button>

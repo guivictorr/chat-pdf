@@ -1,20 +1,5 @@
 "use client";
 
-import { useDropzone } from "react-dropzone";
-import { Button } from "./ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "./ui/collapsible";
-import {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "./ui/tooltip";
-import { FileIcon, PlusIcon } from "lucide-react";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { apiKeyAtom } from "@/state/api-key";
 import {
   AddFileProps,
@@ -22,6 +7,21 @@ import {
   selectedFileAtom,
   useAddFile,
 } from "@/state/file";
+import { useAtom, useAtomValue } from "jotai";
+import { FileIcon, PlusIcon } from "lucide-react";
+import { useDropzone } from "react-dropzone";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./ui/collapsible";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { Button } from "./ui/button";
 
 export function Sidebar() {
   const apiKey = useAtomValue(apiKeyAtom);

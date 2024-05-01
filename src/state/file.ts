@@ -1,11 +1,6 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-
-export interface Message {
-  id: string;
-  role: "assistant" | "user";
-  content: string;
-}
+import { Message } from "./messages";
 
 export interface PdfFile {
   id: string;

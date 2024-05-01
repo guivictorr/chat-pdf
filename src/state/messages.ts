@@ -1,5 +1,11 @@
 import { atom } from "jotai";
-import { selectedFileIdAtom, filesAtom, Message } from "./file";
+import { selectedFileIdAtom, filesAtom } from "./file";
+
+export interface Message {
+  id: string;
+  role: "assistant" | "user";
+  content: string;
+}
 
 export const messagesAtom = atom(
   (get) => {
@@ -10,14 +16,14 @@ export const messagesAtom = atom(
       .map((file) => file.chat)
       .flat();
   },
-  (get, set, content: string) => {
+  (get, set, content: string, role: Message["role"]) => {
     const selectedFileId = get(selectedFileIdAtom);
     const files = get(filesAtom);
 
     const newMessage: Message = {
       id: Date.now().toString(),
       content,
-      role: "user",
+      role,
     };
     const newFiles = files.map((file) => {
       if (file.id !== selectedFileId) return file;

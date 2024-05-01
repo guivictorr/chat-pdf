@@ -49,6 +49,7 @@ export function Sidebar() {
     },
     multiple: false,
     onDrop,
+    noDrag: true,
   });
 
   useEffect(() => {

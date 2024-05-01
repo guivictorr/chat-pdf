@@ -16,9 +16,9 @@ export function Messages() {
   }
 
   return (
-    <ol className="flex flex-col justify-end gap-4 grow rounded-md overflow-y-auto">
+    <ol className="flex flex-col justify-end space-y-4 overflow-y-auto pb-8 flex-1">
       {messages.map((message) => (
-        <li key={message.id} className="flex flex-col gap-4">
+        <li key={message.id} className="space-y-4">
           <header className="flex items-center gap-2">
             <span className="font-bold">
               {message.role === "assistant" ? "AI" : "You"}
@@ -28,7 +28,9 @@ export function Messages() {
             )}
             <div className="h-px bg-muted w-full" />
           </header>
-          <div>{message.content}</div>
+          <p className="whitespace-normal" style={{ wordBreak: "break-all" }}>
+            {message.content}
+          </p>
         </li>
       ))}
     </ol>

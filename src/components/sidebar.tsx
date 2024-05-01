@@ -17,6 +17,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import { Button } from "./ui/button";
+import { useEffect } from "react";
 
 export function Sidebar() {
   const apiKey = useAtomValue(apiKeyAtom);
@@ -49,6 +50,12 @@ export function Sidebar() {
     multiple: false,
     onDrop,
   });
+
+  useEffect(() => {
+    if (!selectedFileId && files.length > 0) {
+      setSelectedFileId(files[0].id);
+    }
+  }, [files, selectedFileId, setSelectedFileId]);
 
   return (
     <Collapsible

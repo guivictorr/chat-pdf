@@ -3,9 +3,9 @@ import { Messages } from "@/components/messages";
 
 export function Chat() {
   return (
-    <main className="flex flex-col gap-12 flex-1 h-full">
+    <main className="flex flex-col gap-8 h-full w-full">
       <Messages />
-      <footer className="mt-auto">
+      <footer>
         <ChatInput />
       </footer>
     </main>

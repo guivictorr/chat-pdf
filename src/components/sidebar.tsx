@@ -20,6 +20,7 @@ import { Button } from "./ui/button";
 import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { addFile } from "@/services/chat-pdf/add-file";
+import { toast } from "sonner";
 
 export function Sidebar() {
   const addFileMutation = useMutation({
@@ -42,7 +43,9 @@ export function Sidebar() {
     const result = await addFileMutation.mutateAsync(selectedFile, {});
 
     if (result === null) {
-      alert("Error adding file");
+      toast("Error! ❌", {
+        description: "Add file request failed.",
+      });
       return;
     }
 

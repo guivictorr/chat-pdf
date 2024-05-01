@@ -12,6 +12,7 @@ import { messagesAtom } from "@/state/messages";
 
 export default function ChatInput() {
   const formRef = useRef<HTMLFormElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const setMessage = useSetAtom(messagesAtom);
   const selectedFileId = useAtomValue(selectedFileIdAtom);
 
@@ -34,6 +35,10 @@ export default function ChatInput() {
     setMessage(message.toString());
     event.currentTarget.reset();
     event.currentTarget.focus();
+
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "";
+    }
   }
 
   function handleEnterPress(event: KeyboardEvent<HTMLTextAreaElement>) {
@@ -52,11 +57,13 @@ export default function ChatInput() {
         Message
       </Label>
       <Textarea
+        ref={textAreaRef}
         id="message"
         name="message"
         placeholder="Type your message here..."
         className="resize-none max-h-[124px] border-0 p-3 shadow-none focus-visible:ring-0 pr-16 text-lg"
         rows={1}
+        wrap="hard"
         onKeyDown={handleEnterPress}
         onChange={handleMessage}
         disabled={!selectedFileId}

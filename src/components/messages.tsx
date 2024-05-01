@@ -16,7 +16,7 @@ export function Messages() {
   }
 
   return (
-    <ol className="flex flex-col justify-end gap-8 grow rounded-md overflow-y-auto">
+    <ol className="flex flex-col justify-end gap-4 grow rounded-md overflow-y-auto">
       {messages.map((message) => (
         <li key={message.content} className="flex flex-col gap-4">
           <header className="flex items-center gap-2">

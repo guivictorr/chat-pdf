@@ -75,10 +75,10 @@ export function Sidebar() {
   return (
     <Collapsible
       defaultOpen
-      className="group flex h-full shrink-0 data-[state='closed']:w-fit data-[state='open']:pl-4 w-full max-w-96"
+      className="group absolute z-20 left-0 top-0 flex md:relative h-full shrink-0 data-[state='closed']:w-fit w-full max-w-80"
     >
       <CollapsibleContent asChild>
-        <ul className="flex flex-col items-start justify-start grow h-full p-3 gap-2 border hover:border-muted-foreground rounded-md overflow-y-auto">
+        <ul className="flex flex-col items-start justify-start grow h-full p-3 gap-2 border rounded-md overflow-y-auto bg-background">
           {files.map((file) => (
             <li key={file.id} className="w-full">
               <Button

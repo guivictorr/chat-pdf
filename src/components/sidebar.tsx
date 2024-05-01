@@ -18,8 +18,13 @@ import {
 } from "./ui/tooltip";
 import { Button } from "./ui/button";
 import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { addFile } from "@/services/chat-pdf/add-file";
 
 export function Sidebar() {
+  const addFileMutation = useMutation({
+    mutationFn: addFile,
+  });
   const apiKey = useAtomValue(apiKeyAtom);
   const [files, setFiles] = useAtom(filesAtom);
   const [selectedFileId, setSelectedFileId] = useAtom(selectedFileIdAtom);
@@ -30,16 +35,22 @@ export function Sidebar() {
     };
   }
 
-  function onDrop(acceptedFiles: File[]) {
+  async function onDrop(acceptedFiles: File[]) {
     if (acceptedFiles.length <= 0) return;
     const selectedFile = acceptedFiles[0];
 
+    const result = await addFileMutation.mutateAsync(selectedFile, {});
+
+    if (result === null) {
+      alert("Error adding file");
+      return;
+    }
+
     const newFile: PdfFile = {
+      id: result.sourceId,
       name: selectedFile.name,
-      id: Date.now().toString(),
       chat: [],
     };
-
     setFiles([...files, newFile]);
   }
 
@@ -79,7 +90,7 @@ export function Sidebar() {
           ))}
           <li className="w-full">
             <Button
-              disabled={!apiKey}
+              disabled={!apiKey || addFileMutation.isPending}
               variant="outline"
               className="w-full"
               {...getRootProps()}

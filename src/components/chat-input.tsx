@@ -37,6 +37,11 @@ export default function ChatInput() {
     }
 
     setMessage(message.toString(), "user");
+    if (textAreaRef.current) {
+      textAreaRef.current.value = "";
+      textAreaRef.current.style.height = "";
+      textAreaRef.current.focus();
+    }
 
     const result = await sendMessageMutation.mutateAsync({
       sourceId: selectedFileId,
@@ -45,18 +50,12 @@ export default function ChatInput() {
 
     if (result === null) {
       toast("Error! ❌", {
-        description: "Add file request failed.",
+        description: "Send message request failed.",
       });
       return;
     }
 
     setMessage(result.content, "assistant");
-
-    if (textAreaRef.current) {
-      textAreaRef.current.value = "";
-      textAreaRef.current.style.height = "";
-      textAreaRef.current.focus();
-    }
   }
 
   function handleEnterPress(event: KeyboardEvent<HTMLTextAreaElement>) {

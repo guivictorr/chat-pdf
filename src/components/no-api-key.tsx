@@ -29,7 +29,7 @@ export function NoApiKey() {
   }
 
   return (
-    <div className="fixed h-full w-full z-20 backdrop-blur flex flex-col items-center justify-center px-4">
+    <div className="fixed h-full w-full z-30 backdrop-blur flex flex-col items-center justify-center px-4">
       <div className="border p-8 rounded-lg bg-background">
         <div className="text-center">
           <p className="font-bold text-lg">No API Key found</p>
